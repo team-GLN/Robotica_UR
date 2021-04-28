@@ -1,0 +1,64 @@
+#Setup robot
+set_gravity([0, 0, 9.82])
+set_tcp(p[0, 0.025, 0.175, 0, 0, 1.5708])
+set_payload(2.0) #peso 2kg
+    
+#Declarar posicion segura
+SafePoint = [0, -0.785398, -1.5708, 2.35619, 1.5708, 0]
+    
+#Declarar parametros de la rejilla
+filas = 2
+columnas = 3
+distancia = 0.01
+    
+#Parametros desbarbado
+h_desbarbado = 0.05
+t_desbarbado = 2.5
+
+#funcion desbarbado
+def desbarbado(F, C, D, H, T):
+pi = 3.14159  
+i = 0
+   
+    while i < F:
+        j = 0
+
+        while j < C:
+           puntoArriba = p[0.500+i*D, -0.150+j*D, H, 0, pi, 0]
+           movej(puntoArriba, 1, 1)
+           puntoAbajo = p[0.500+i*D, -0.150+j*D, 0, 0, pi, 0]
+           movel(puntoAbajo, 1, 1)
+           textmsg("Start desbarbado, fila ", i+1)
+           textmsg("columna ", j+1)
+           set_digital_out(0, True)
+           sleep(T)
+           set_digital_out(0, False)
+           textmsg("Stop desbarbado")
+           movel(puntoArriba, 1, 1)
+           j = j + 1
+        end
+
+        i = i + 1
+
+        if(i< F):
+           j = 0
+           pose = p[0.500+i*D, -0.150+j*D, H, 0, pi, 0]
+           movej(pose, 1, 1)
+        end
+    end        
+end
+    
+#mensaje de inicio    
+popup("Welcome. Ready?", title="Start", blocking=True)
+
+#iniciar en posicion segura    
+movej(SafePoint, 1, 1)
+
+#invocar funcion desbarbado
+desbarbado(filas, columnas, distancia, h_desbarbado, t_desbarbado)
+
+#finalizar en posicion segura    
+movej(SafePoint, 1, 1)
+
+#mensaje de fin
+popup("Su codigo ha terminado. Desea continuar?", title="Finish", blocking=True)
