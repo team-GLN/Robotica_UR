@@ -1,4 +1,4 @@
-# Proyecto Final del curso de Tecnologías Industriales
+# Proyecto Final del curso de Robotica Industrial Aplicada
 ## Universal Robots
 *Master Universitario en Digital Manufacturing*
 
