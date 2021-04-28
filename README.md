@@ -1,2 +1,9 @@
 # Robotica
-Proyecto del curso Robótica Industrial Aplicada por estudiantes del Master en Fabricación Digital
+Proyecto Final del curso de Tecnologías Industriales
+Master Universitario en Digital Manufacturing
+
+Desarrollado por:
+
+Nekane Berasategui
+Goiatz Ezpeleta
+Laura Zambrano
