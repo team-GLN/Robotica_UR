@@ -13,7 +13,7 @@ Universal Robot es un fabricante referente de robots colaborativos. Asimismo, de
 
 
 
-### Programación mediante script del robot UR 
+### Programación mediante script del robot UR5 
 Antes de comenzar con lal explicación de los ejercicios propuestos, se va a hacer una pequeña explicación de la estructura del script.
 
 Todos los scripts se han escrito con la misma estructura. 
