@@ -8,14 +8,15 @@ Desarrollado por:
 * Laura Zambrano
 
 ### Contenido
-1. Introducción
-2. [Programación mediante script del robot UR5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#programaci%C3%B3n-mediante-script-del-robot-ur5)
-2.1. [Ejercicio 1](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1)
-2.2. [Ejercicio 2](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-2)
-2.3. [Ejercicio 3](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-3)
-2.4. [Ejercicio 4](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-4)
-3. [Programación mediante easy programming del robot UR5]
+- Introducción
+- [Programación mediante script del robot UR5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#programaci%C3%B3n-mediante-script-del-robot-ur5)
+  - [Ejercicio 1](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1)
+  - [Ejercicio 2](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-2)
+  - [Ejercicio 3](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-3)
+  - [Ejercicio 4](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-4)
+- [Programación mediante easy programming del robot UR5]
 
+### Introducción
 La práctica desarrollada a continuación, se ha llevado a cabo mediante el simulador “SW 5.9 OFFLINE SIMULATOR - E-SERIES - UR SIM FOR NON LINUX 5.9.4” de Universal Robot. Además ha sido necesaria la instalación de VirtualBox 6.1 y el Extension Pack. Dentro del simulador se encuentran diferentes modelos de robots, el número que acompaña al nombre del modelo indica la carga máxima qeu puede soportar. En este caso se va a emplear el modelo UR5, este modelo puede soportar una carga máxima de 5kg, se ha elegido este modelo ya que es el que se encuentra en el laboratorio. 
 
 Universal Robot es un fabricante referente de robots colaborativos. Asimismo, desde el punto de vista de programación, ofrece la posibilidad de programar tanto en scripts como mediante un asistente de programación sencilla. Si bien es cierto que la práctica se ha tenido que desarrollar mediante scripts, también se ha trabajado la segunda opción.
@@ -98,5 +99,10 @@ Por ultimo, el robot regresa con un ```movej```a la posición segura y se muestr
 movej(SafePoint, 1, 1)
 popup("Su codigo ha terminado. Desea continuar?", title="Finish", blocking=True)
 ```
+### Ejercicio 2
+
+### Ejercicio 3
+
+### Ejercicio 4
 
 
