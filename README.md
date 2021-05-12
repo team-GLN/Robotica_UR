@@ -100,6 +100,78 @@ movej(SafePoint, 1, 1)
 popup("Su codigo ha terminado. Desea continuar?", title="Finish", blocking=True)
 ```
 ### Ejercicio 2
+Para este segundo ejercicio se implementa un programa para el desbarbado de unas rejillas, en el cual el robot se desplaza a las intersecciones de la rejilla para realizar el desbarbado, segun el número de filas, columnas y distancia entre filas/columna definidas por el cliente. 
+
+El setup de la célula es el siguiente:
+- El robot está colocado sobre una mesa de trabajo con la base del robot apoyada en la mesa.
+- Se ha añadido una herramienta de desbarbado de 2.0kg y su TCP está en la posición XYZ [0, 25, 175] mm y RxRyRz [0, 0, 90] grados. 
+- La posición segura de inicio y final de programa, en espacio de joints, es [0º, -45º, -90º, -135º, 90º, 0º].
+
+Por lo que se realiza el siguiente script para configurar el robot, donde en se define la gravedad y las caracteristicas de la herramienta tanto su posición (en metros y pi radianes) como su peso (en Kg). Tambien se declara la posición segura descrita anteriormente.
+
+```py
+#Setup robot
+set_gravity([0, 0, 9.82])
+set_tcp(p[0, 0.025, 0.175, 0, 0, 1.5708])
+set_payload(2.0) #peso 2kg
+    
+#Declarar posicion segura
+SafePoint = [0, -0.785398, -1.5708, 2.35619, 1.5708, 0
+```
+De acuerdo con los siguientes requisitos se tienen diferentes tipos de rejillas por lo que el número de filas, columnas y distancia entre filas/columnas es configurable y se define en el siguiente script. 
+```py
+#Declarar parametros de la rejilla
+filas = 2
+columnas = 3
+distancia = 0.01
+```
+En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del desbarbado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de desbarbado y bajar de forma lineal para asegurar que el robot entra de forma perpendicular. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos. Dichos parametros son definidos en el siguiente script.
+
+```py    
+#Parametros desbarbado
+h_desbarbado = 0.05
+t_desbarbado = 2.5
+```
+Ademas, al ser un proceso ciclico se ha definido un subproceso donde se realice el desbarbado, el cual esta integrado por dos ciclos (uno para filas y otro colummnas).
+El robot volverá a la posición segura al finalizar el proceso. Durante la ejecución del programa queremos que el programa registre en el LOG del robot cuándo alcanza las poses de desbarbado, además de utilizar una ventana popup que muestre cuando comienza y termina el programa
+
+- La posición de la primera intersección siempre será la misma XYZ [500, -150, 0] RxRyRz [0, 180, 0]
+- .
+
+```py
+#funcion desbarbado
+def desbarbado(F, C, D, H, T):
+pi = 3.14159  
+i = 0
+   
+    while i < F:
+        j = 0
+
+        while j < C:
+           puntoArriba = p[0.500+i*D, -0.150+j*D, H, 0, pi, 0]
+           movej(puntoArriba, 1, 1)
+           puntoAbajo = p[0.500+i*D, -0.150+j*D, 0, 0, pi, 0]
+           movel(puntoAbajo, 1, 1)
+           textmsg("Start desbarbado, fila ", i+1)
+           textmsg("columna ", j+1)
+           set_digital_out(0, True)
+           sleep(T)
+           set_digital_out(0, False)
+           textmsg("Stop desbarbado")
+           movel(puntoArriba, 1, 1)
+           j = j + 1
+        end
+
+        i = i + 1
+
+        if(i< F):
+           j = 0
+           pose = p[0.500+i*D, -0.150+j*D, H, 0, pi, 0]
+           movej(pose, 1, 1)
+        end
+    end        
+end
+```
 
 ### Ejercicio 3
 
