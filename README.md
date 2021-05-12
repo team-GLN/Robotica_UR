@@ -125,7 +125,7 @@ filas = 2
 columnas = 3
 distancia = 0.01
 ```
-En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del desbarbado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de desbarbado y bajar de forma lineal para asegurar que el robot entra de forma perpendicular. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos. Dichos parametros son definidos en el siguiente script.
+En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del desbarbado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de desbarbado y bajar de forma lineal para asegurar que el robot entra de forma perpendicular. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos. Dichos parametros son definidos en el siguiente script. Se consigue que el robor permanezca en el punto de desbarbado durante el tiempo definido mediante la función predeterminada ```sleep( )```.
 
 ```py    
 #Parametros desbarbado
@@ -136,7 +136,7 @@ Ademas, al ser un proceso ciclico se ha definido un subproceso donde se realice 
 El robot volverá a la posición segura al finalizar el proceso. Durante la ejecución del programa queremos que el programa registre en el LOG del robot cuándo alcanza las poses de desbarbado, además de utilizar una ventana popup que muestre cuando comienza y termina el programa
 
 - La posición de la primera intersección siempre será la misma XYZ [500, -150, 0] RxRyRz [0, 180, 0]
-- .
+- Cuando un punto de la rejilla se ha mecanizado pasa al siguiente, desplaandose la distancia que se ha definido en las variables del principio, tiene que recorrer todos los puntos de una fila para que pueda saltar al primer punto de la siguiente fila.
 
 ```py
 #funcion desbarbado
@@ -172,6 +172,7 @@ i = 0
     end        
 end
 ```
+Cuando se han mecanizado todos los puntos de la rejilla, es decir, los ciclos definidos han llegado al limite establecido por las variables ```filas```y ```columnas```, el robot vuelve a la posición de seguridad y finaliza el programa. 
 
 ### Ejercicio 3
 
