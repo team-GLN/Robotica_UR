@@ -41,19 +41,50 @@ Despues se declara la posición segura de inicio y final de programa, la cual en
 #Declarar posicion segura
 SafePoint=[0, -pi/4, -pi/2, -3*pi/4, pi/2, 0]
 ```
-En el programa queremos que:
+
+Primer, se utiliza una ventana popup para mostrar cuando se comienza el programa. Y el robot se mueve en espacio joints a la posición segura para iniciar el programa.
+```py
+#popup inicio
+popup("Welcome. Ready?", title="Start", warning=False, error=False, blocking=True)
+movej(SafePoint, 1, 1) #iniciar en Posicion segura
+```
+
+En el programa se quiere simular una aplicación sencilla de pick&place donde el robot coge una pieza en una posición conocida y la deja en el punto deseado. Siguiendo la siguiente secuencia de pasos:
 1. El robot vaya a la posición XYZ [500, 0, 250] RxRyRz [0, 180, 0], baje 250mm hasta quedarse en Z=0, espere 1 segundo y vuelva a subir a la posición previa.
 2. El robot vaya a la posición XYZ [500, 250, 250] RxRyRz [0, 180, 0], baje 250mm hasta quedarse en Z=0, espere 1 segundo y vuelva a subir a la posición previa.
 3. El robot vuelva a la posición segura.
 
-Por lo cual se definen las siguientes variables que hacen referencia a esas posiciones escritas en espacio cartesiano. 
+Por lo cual se definen las siguientes variables que hacen referencia a esas posiciones descritas anteriormente en espacio cartesiano. 
 ```py
 #Declaracion de posiciones globales
-posPrePick = p[0.500, 0.000, 0.250, 0, pi, 0]
-posPick = p[0.500, 0.000, 0.000, 0, pi, 0]
-posPrePlace = p[0.500, 0.250, 0.250, 0, pi, 0]
-posPlace = p[0.500, 0.250, 0.000, 0, pi, 0]
+posPrePick = p[0.500, 0.000, 0.250, 0, pi, 0] #herramienta arriba en el punto de pick
+posPick = p[0.500, 0.000, 0.000, 0, pi, 0] #herramienta abajo en el punto de pick
+posPrePlace = p[0.500, 0.250, 0.250, 0, pi, 0]#herramienta arriba en el punto de place
+posPlace = p[0.500, 0.250, 0.000, 0, pi, 0]#herramienta abajo en el punto de place
+```
+Se realiza el primer paso donde se recoge la "pieza" (pick). El robot se desplaza con un ```movej``` a la posición previa al pick. Después baja en línea recta con un ```movel``` a la posición de pick y espera un segundo para "recoger la pieza". Sube nuevamente a la posición arriba del punto de pick y muestra un mensaje por consola LOG que ha realizado el pick. La velocidad y aceleración en todos los movimientos será de 1 m/s y m/s2 respectivamente al ser el valor por defecto para estas aplicaciones.
+```py
+#Accion 1, Pick
+movej(posPrePick, 1, 1) #velocidad y aceleracion = 1
+movel(posPick, 1, 1)
+sleep(1)
+movel(posPrePick, 1, 1)
+textmsg("Pick")
+```
+Posteriormente se realiza el segundo paso donde se coloca la "pieza" (place). El robot se desplaza con un ```movej```a la posición previa al place. Después baja en línea recta con un ```movel``` a la posición de place, donde suelta  la pieza y espera un segundo. Sube nuevamente a la posición arriba del punto de place y muestra un mensaje por consola LOG que ha realizado el place.
+```py
+#Accion 2, place
+movej(posPrePlace, 1, 1)
+movel(posPlace, 1, 1)
+sleep(1)
+movel(posPrePlace, 1, 1)
+textmsg("Place")
+```
+Por ultimo, el robot regresa con un ```movej```a la posición segura y se muestra una ventana popup para dar por finalizado el programa. En caso que se desee volver a ejecutar se selecciona que si desea continuar para repetir el código presentado. 
+```py
+#Finalizar posicion segura
+movej(SafePoint, 1, 1)
+popup("Su codigo ha terminado. Desea continuar?", title="Finish", blocking=True)
 ```
 
-De esta forma simularemos una aplicación sencilla de pick&place donde el robot coge una pieza en una posición conocida y la deja en el punto deseado. Durante la ejecución del programa queremos que el programa registre en el LOG del robot cuándo alcanza las poses de pick y place, además de utilizar una ventana popup que muestre cuando comienza y termina el programa
 
