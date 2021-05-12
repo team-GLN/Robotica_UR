@@ -199,9 +199,9 @@ t_desbarbado = 2.5
 t_pulido = 1
 ```
 
-En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del mecanizado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de la rejilla y bajar de forma lineal para asegurar que el robot entra de forma perpendicular, este movimiento lo tendrá que repetir dos veces, una para el desbarbado y otra para el pulido. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos, subira a la posición previa y volverá a bajar para hacer el pulido durante 1 segundo. Antes de que el robot baje al punto de la rejilla para realizar cada acción hay que llamar al TCP correspondiente de cada operación.
+En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del mecanizado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de la rejilla y bajar de forma lineal para asegurar que el robot entra de forma perpendicular, este movimiento lo tendrá que repetir dos veces, una para el desbarbado y otra para el pulido. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos, subira a la posición previa y volverá a bajar para hacer el pulido durante 1 segundo. Antes de que el robot baje al punto de la rejilla para realizar cada acción hay que llamar al TCP correspondiente de cada cabezal.
 
-Es un proceso cíclico que está compuesto por un ciclo dentro del otro, el más exterior permite desplazarse al robotl por las diferentes filas de la rejilla y el ciclo interior hace que el robot se mueva por los punto de una misma fila.
+Es un proceso cíclico que está compuesto por un ciclo dentro del otro, el más exterior permite desplazarse al robot por las diferentes filas de la rejilla y el ciclo interior hace que el robot se mueva por los punto de una misma fila.
 ```py
 def desbarbado(F, C, D, H, T_d, T_p):
     i = 0
@@ -261,9 +261,9 @@ set_payload(3)
 SafePoint=[0, -pi/8, -5*pi/8, pi/4, pi/2, 0]
 ```
 Para que el robot empiece con el desbarbado tiene que recivir la señal de la entrada digital 0. Esto se consigue añadiendo un nodo tipo *WAIT* desde la lista de nodos antes del nodo *SCRIPT*. Dentro del nodo Wait se elige la opción de "Wait for digital input" seleccionando la entrada digital 0 de la lista y la señal "High". 
-Para poder activar la entrada digital hay que trabajhar en modo *Simulation* en la barra inferior del software. Cunado este modo está activado el entorno negro se vuelve azul y se habilita la selección de las entradas digitles en la pestaña *I/O*
+Para poder activar la entrada digital hay que trabajar en modo *Simulation* en la barra inferior del software. Cunado este modo está activado el entorno negro se vuelve azul y se habilita la selección de las entradas digitles en la pestaña *I/O*.
 
-Dentro del script, la escritura de la función de desbarbado es igual que en el ejercicio 3 con la única diferencia de que como el origen del robot está a una altura diferente, la altura en la que se situa el punto que hay que mecanizar es diferente respecto al otro caso. De este modo el punto previo al desbarbado se define como ```puntoArriba=p[-0.25+i*D, -0.15+j*D, H-0.05, 0, 0, 0]``` y la posición donde se encuentra el punto a mecanizar se define como ```puntoAbajo=p[-0.25+i*D, -0.15+j*D, H, 0, 0, 0]``` siendo ```j``` e ```ì``` variables que hacen que el ciclo no se ejecute de forma infinita, ```D``` la distancia entre los puntos de la rejilla y ```H``` la  distyancia en el eje Z desde la base del robot hata la rejilla, en este caso 1000mm.
+Dentro del script, la escritura de la función de desbarbado es igual que en el ejercicio 3 con la única diferencia de que como el origen del robot está a una altura diferente, la altura en la que se situa el punto que hay que mecanizar es diferente respecto al otro caso. De este modo el punto previo al desbarbado se define como ```puntoArriba=p[-0.25+i*D, -0.15+j*D, H-0.05, 0, 0, 0]``` y la posición donde se encuentra el punto a mecanizar se define como ```puntoAbajo=p[-0.25+i*D, -0.15+j*D, H, 0, 0, 0]``` siendo ```j``` e ```ì``` variables que hacen que el ciclo no se ejecute de forma infinita, ```D``` la distancia entre los puntos de la rejilla y ```H``` la  distancia en el eje Z desde la base del robot hata la rejilla, en este caso 1000mm.
 
 ### Ejercicio 5
 Este ejercicio, que se basa en el ejercicio 2, trata de detectar los puntos que el brazo no puede alcanzar. Los puntos inalcanzables tienen que quedar registrados en los LOG del robot. Estos puntos inalcanzables pueden aparecer cuando la distancia entre los puntos es muy grande o cuando, teniendo una distncia relativamente pequeña, tiene muchos puntos que mecanizar.
@@ -314,4 +314,4 @@ def desbarbado(F,C,d,h,t):
 end
 ```
 
-Si en la comprobación de los puntos se encuentra con al menos un punto conflictivo, aprarecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
+Si en la comprobación de los puntos se encuentra con al menos un punto conflictivo, aparecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
