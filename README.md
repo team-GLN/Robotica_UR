@@ -175,7 +175,32 @@ end
 Cuando se han mecanizado todos los puntos de la rejilla, es decir, los ciclos definidos han llegado al limite establecido por las variables ```filas```y ```columnas```, el robot vuelve a la posición de seguridad y finaliza el programa. 
 
 ### Ejercicio 3
+Este ejercicio es muy parecido al Ejercicio 2, con la diferencia de que en este caso contamos con una herramienta de doble cabezal en el extremo del robot, uno para el desbarbado y otro para el pulido, cada cabezal tiene su TCP. Partiendo del script del Ejercicio 2 y haciendo unas modificaciones se puede programar facilmete el robot para este caso.
 
+El setup de la célula es el siguiente:
+- El robot está colocado sobre una mesa de trabajo con la base del robot apoyada en la mesa.
+- Se ha añadido una herramienta de 3.0kg con un cabezal de desbarbado con TCPn XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 0, y un cabezal de pulido con TCP XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 1. 
+- La posición segura de inicio y final de programa, en espacio de joints, es [0º, -45º, -90º, -135º, 90º, 0º].
+```py
+#Setup robot
+set_gravity([0, 0, 9.82])
+set_payload(3.0) #peso 3kg
+    
+#Declarar posicion segura
+SafePoint=[0,-pi/4,-pi/2,-3*pi/4,pi/2,0]
+```
+
+Los parametros de la rejilla no varían. Lo que si es diferente respecto al anterior ejercicio son los parametros del mecanizado ya que en este caso hay que añadir también los parametros correspondientes al proceso de pulido que dura 1 segundo.
+```py
+#Parametros desbarbado
+h_desbarbado = 0.05
+t_desbarbado = 2.5
+t_pulido = 1
+```
+
+En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del mecanizado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de la rejilla y bajar de forma lineal para asegurar que el robot entra de forma perpendicular, este movimiento lo tendrá que repetir dos veces, una para el desbarbado y otra para el pulido. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos, subira a la posición previa y volverá a bajar para hacer el pulido durante 1 segundo. Antes de que el robot baje al punto de la rejilla para realizar cada acción hay que llamar al TCP correspondiente de cada operación.
+
+Es un proceso cíclico que está compuesto por un ciclo dentro del otro, el más exterior permite desplazarse al robotl por las diferentes filas de la rejilla y el ciclo interior hace que el robot se mueva por los punto de una misma fila.
 ### Ejercicio 4
 
 
