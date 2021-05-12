@@ -18,3 +18,9 @@ Antes de comenzar con lal explicación de los ejercicios propuestos, se va a hac
 
 Todos los scripts se han escrito con la misma estructura. 
 En primer lugar se encuentra la definición del setup del robot. Aunque el setup se pueda definir desde el programa mismo, es aconsejable definir el setup del robot dentro del script, de este modo al ejecutar el programa tendrá prioridad el setup del script, evitando así errores por modificaciones no deseadas del setup desde el programa.
+
+``py
+#cejeo
+
+``
+
