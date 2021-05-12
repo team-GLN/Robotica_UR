@@ -13,7 +13,7 @@ Desarrollado por:
   - [Ejercicio 1](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1)
   - [Ejercicio 2](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-2)
   - [Ejercicio 3](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-3)
-  - [Ejercicio 4](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-4)
+  - [Ejercicio 5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-5)
 - [Programación mediante easy programming del robot UR5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#Programación-mediante-easy-programming-del-robot-UR5)
 
 ### Introducción
@@ -264,3 +264,52 @@ Para poder activar la entrada digital hay que trabajhar en modo *Simulation* en 
 
 Dentro del script, la escritura de la función de desbarbado es igual que en el ejercicio 3 con la única diferencia de que como el origen del robot está a una altura diferente, la altura en la que se situa el punto que hay que mecanizar es diferente respecto al otro caso. De este modo el punto previo al desbarbado se define como ```puntoArriba=p[-0.25+i*D, -0.15+j*D, H-0.05, 0, 0, 0]``` y la posición donde se encuentra el punto a mecanizar se define como ```puntoAbajo=p[-0.25+i*D, -0.15+j*D, H, 0, 0, 0]``` siendo ```j``` e ```ì``` variables que hacen que el ciclo no se ejecute de forma infinita, ```D``` la distancia entre los puntos de la rejilla y ```H``` la  distyancia en el eje Z desde la base del robot hata la rejilla, en este caso 1000mm.
 
+### Ejercicio 5
+Este ejercicio, que se basa en el ejercicio 2, trata de detectar los puntos que el brazo no puede alcanzar. Los puntos inalcanzables tienen que quedar registrados en los LOG del robot. Estos puntos inalcanzables pueden aparecer cuando la distancia entre los puntos es muy grande o cuando, teniendo una distncia relativamente pequeña, tiene muchos puntos que mecanizar.
+
+El setup y el punto de seguridad se mantienen respecto al Ejercicio 2, también el punto de inicio del desbarbado y los parametros de desbarbado.
+
+Antes de empezar con el desbarbado hay que hacer un chequeo del alcance de los puntos empleando la función ```is_within_safety_limits( )``` dentro de un ciclo que lo va comprobando punto por punto. Se define la variable ```error``` que irá aumentando su valor por cada punto inalcanzble que detecte, estos puntos se guardan en los LOG.
+
+```py
+def desbarbado(F,C,d,h,t):
+  	#Comprobacion de los puntos conflictivos, por cada punto conflictivo qeu calcule el contador error aumentara
+   	i=0
+  	error=0
+   	while i<F:
+   		j=0
+   		while j<C:
+   			puntoArriba=p[0.5+i*d, -0.15+j*d, h, 0, pi, 0]
+   			if is_within_safety_limits(puntoArriba)==False:
+   				textmsg("punto no alcanzable ",  puntoArriba)
+  				error=error+1
+  			end
+       		j=j+1
+   		end
+       	i=i+1
+   	end
+	#si no hay puntos conflictivos el programa de desbarbado se ejecutara
+	if error!=0:
+		popup("Hay puntos conflictivos, no se puede seguir con el programa", warning=True, error=False, blocking=True)
+	else:
+		i=0
+		while i<F:
+			j=0
+			while j<C:
+				puntoArriba=p[0.5+i*d, -0.15+j*d, h, 0, pi, 0]
+				movej(puntoArriba,1,1)
+				puntoAbajo=p[0.5+i*d, -0.15+j*d, 0, 0, pi, 0]
+				movel(puntoAbajo,1,1)
+				textmsg(puntoAbajo) #Guarda un LOG por cada punto que hace
+				set_digital_out(0,True)
+				sleep(t)
+				set_digital_out(0,False)
+				movel(puntoArriba,1,1)
+				j=j+1
+			end
+			i=i+1
+		end
+	end
+end```
+
+Si en la comprovación de los puntos se encuentra con al menos un punto conflictivo, aprarecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
