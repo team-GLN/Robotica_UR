@@ -313,4 +313,4 @@ def desbarbado(F,C,d,h,t):
 end
 ```
 
-Si en la comprovación de los puntos se encuentra con al menos un punto conflictivo, aprarecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
+Si en la comprobación de los puntos se encuentra con al menos un punto conflictivo, aprarecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
