@@ -137,7 +137,7 @@ Ademas, al ser un proceso ciclico se ha definido un subproceso donde se realice 
 El robot volverá a la posición segura al finalizar el proceso. Durante la ejecución del programa queremos que el programa registre en el LOG del robot cuándo alcanza las poses de desbarbado, además de utilizar una ventana popup que muestre cuando comienza y termina el programa
 
 - La posición de la primera intersección siempre será la misma XYZ [500, -150, 0] RxRyRz [0, 180, 0]
-- Cuando un punto de la rejilla se ha mecanizado pasa al siguiente, desplaandose la distancia que se ha definido en las variables del principio, tiene que recorrer todos los puntos de una fila para que pueda saltar al primer punto de la siguiente fila.
+- Cuando un punto de la rejilla se ha mecanizado pasa al siguiente, desplazandose la distancia que se ha definido en las variables del principio, tiene que recorrer todos los puntos de una fila para que pueda saltar al primer punto de la siguiente fila.
 
 ```py
 #funcion desbarbado
