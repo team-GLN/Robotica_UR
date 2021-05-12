@@ -14,19 +14,17 @@ Universal Robot es un fabricante referente de robots colaborativos. Asimismo, de
 
 
 ### Programación mediante script del robot UR5 
-Antes de comenzar con la explicación de los ejercicios propuestos, se va a hacer una pequeña explicación de la estructura del script.
-
-Todos los scripts se han escrito con la misma estructura. 
+Antes de comenzar con la explicación de los ejercicios propuestos, se va a hacer una pequeña explicación de la estructura del script. Se acalara que todos los scripts se han escrito con la misma estructura. 
 En primer lugar se encuentra la definición del setup del robot. Aunque el setup se pueda definir desde el programa mismo, es aconsejable definir el setup del robot dentro del script, de este modo al ejecutar el programa tendrá prioridad el setup del script, evitando así errores por modificaciones no deseadas del setup desde el programa.
 Despues se realiza una declaración de variables, donde se definen las posiciones y parametros a utilizar durante la ejecución del programa.
-Seguido a ello, se muestran los subprocesos, métodos o funciones que se requieran o invoquen en el código.
-Y por ultimo el principal, donde se realizan el resto de acciones.
+
+Seguido a ello, se muestran los subprocesos, métodos o funciones que se requieran o invoquen en el código. Y por ultimo el principal, donde se realizan el resto de acciones.
 
 
 ### Ejercicio 1
 El setup de la célula es el siguiente:
-• El robot está colocado sobre una mesa de trabajo con la base del robot apoyada en la mesa.
-• Se ha añadido un gripper de 1.5kg y su TCP está en la posición XYZ [0, 0, 150] mm y RxRyRz [0, 0, 90] grados.
+* El robot está colocado sobre una mesa de trabajo con la base del robot apoyada en la mesa.
+* Se ha añadido un gripper de 1.5kg y su TCP está en la posición XYZ [0, 0, 150] mm y RxRyRz [0, 0, 90] grados.
 
 Por lo que se realiza el siguiente script para configurar el robot, donde en se define la gravedad y las caracteristicas de la herramienta tanto su posición (en metros y pi radianes) como su peso (en Kg). Tambien ha definido la variable pi, que se utilizara a lo largo del codigo.
 
