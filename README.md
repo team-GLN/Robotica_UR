@@ -179,7 +179,7 @@ Este ejercicio es muy parecido al Ejercicio 2, con la diferencia de que en este 
 
 El setup de la célula es el siguiente:
 - El robot está colocado sobre una mesa de trabajo con la base del robot apoyada en la mesa.
-- Se ha añadido una herramienta de 3.0kg con un cabezal de desbarbado con TCPn XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 0, y un cabezal de pulido con TCP XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 1. 
+- Se ha añadido una herramienta de 3.0kg con un cabezal de desbarbado con TCP XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 0, y un cabezal de pulido con TCP XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 1. 
 - La posición segura de inicio y final de programa, en espacio de joints, es [0º, -45º, -90º, -135º, 90º, 0º].
 ```py
 #Setup robot
@@ -190,7 +190,7 @@ set_payload(3.0) #peso 3kg
 SafePoint=[0,-pi/4,-pi/2,-3*pi/4,pi/2,0]
 ```
 
-Los parametros de la rejilla no varían. Lo que si es diferente respecto al anterior ejercicio son los parametros del mecanizado ya que en este caso hay que añadir también los parametros correspondientes al proceso de pulido que dura 1 segundo.
+Los parametros de la rejilla no varían. Lo que sí es diferente respecto al anterior ejercicio son los parametros del mecanizado ya que en este caso hay que añadir también los parametros correspondientes al proceso de pulido que dura 1 segundo.
 ```py
 #Parametros desbarbado
 h_desbarbado = 0.05
@@ -201,6 +201,66 @@ t_pulido = 1
 En el programa se quiere que el robot pase por todos los puntos de intersección a partir de los parámetros decididos(filas, columnas, distancia). Antes del mecanizado de cada una de las intersecciones, el robot deberá ir a una posición 50mm por encima de la pose de la rejilla y bajar de forma lineal para asegurar que el robot entra de forma perpendicular, este movimiento lo tendrá que repetir dos veces, una para el desbarbado y otra para el pulido. Una vez llegado a la posición el robot realizará el desbarbado durante 2.5 segundos, subira a la posición previa y volverá a bajar para hacer el pulido durante 1 segundo. Antes de que el robot baje al punto de la rejilla para realizar cada acción hay que llamar al TCP correspondiente de cada operación.
 
 Es un proceso cíclico que está compuesto por un ciclo dentro del otro, el más exterior permite desplazarse al robotl por las diferentes filas de la rejilla y el ciclo interior hace que el robot se mueva por los punto de una misma fila.
-### Ejercicio 4
+```py
+def desbarbado(F, C, D, H, T_d, T_p):
+    i = 0
+    while i < F:
+        j = 0
+        while j < C:
+           puntoArriba = p[0.500+i*D, -0.150+j*D, H, 0, pi, 0]
+           movej(puntoArriba, 1, 1)
+           #desbarbado
+           set_tcp(tcp_des)
+           puntoAbajo = p[0.500+i*D, -0.150+j*D, 0, 0, pi, 0]
+           movel(puntoAbajo, 1, 1)
+           textmsg("Start desbarbado, fila ", i+1)
+           textmsg("columna ", j+1)
+           set_digital_out(0, True)
+           sleep(T_d)
+           set_digital_out(0, False)
+           textmsg("Stop desbarbado")
+           movel(puntoArriba, 1, 1)
+           #pulido
+           set_tcp(tcp_pul)
+           puntoAbajo = p[0.500+i*D, -0.150+j*D, 0, 0, pi, 0]
+           movel(puntoAbajo, 1, 1)
+           textmsg("Start pulido, fila ", i+1)
+           textmsg("columna ", j+1)
+           set_digital_out(1, True)
+           sleep(T_p)
+           set_digital_out(1, False)
+           textmsg("Stop pulido")
+           movel(puntoArriba, 1, 1)
+           j = j + 1
+        end
+        i = i + 1
+        if(i< F):
+           j = 0
+           pose = p[0.500+i*D, -0.150+j*D, H, 0, pi, 0]
+           movej(pose, 1, 1)
+        end
+    end        
+end
+```
 
+### Ejercicio 4
+El ejercicio 4 parte el Ejercicio 3, en este caso, por limitaciones en el espacio, el robot está colgado en el techo y como medida de seguridad no se pondrá en marcha hasta que reciba la señal de la entrada digital.
+Para situar el robot en el techo, en la sección *Installation* del simulador se especifica el modo de montaje colgado del techo.
+
+El setup de la célula es el siguiente:
+- El robot está colgado del techo. Esto hace que la gravedad que afecta al robot se considere negativa en Z.
+- Se ha añadido una herramienta de 3.0kg con un cabezal de desbarbado con TCP XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 0, y un cabezal de pulido con TCP XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] el cual se activa con la salida digital 1. 
+- La posición segura de inicio y final de programa, en espacio de joints, es  [0º, -22.5º, -112.5º, 45º, 90º, 0º].
+ ```py
+#Setup robot
+set_gravity([0, 0, -9.82])
+set_payload(3)
+    
+#Posicion segura
+SafePoint=[0, -pi/8, -5*pi/8, pi/4, pi/2, 0]
+```
+Para que el robot empiece con el desbarbado tiene que recivir la señal de la entrada digital 0. Esto se consigue añadiendo un nodo tipo *WAIT* desde la lista de nodos antes del nodo *SCRIPT*. Dentro del nodo Wait se elige la opción de "Wait for digital input" seleccionando la entrada digital 0 de la lista y la señal "High". 
+Para poder activar la entrada digital hay que trabajhar en modo *Simulation* en la barra inferior del software. Cunado este modo está activado el entorno negro se vuelve azul y se habilita la selección de las entradas digitles en la pestaña *I/O*
+
+Dentro del script, la escritura de la función de desbarbado es igual que en el ejercicio 3 con la única diferencia de que como el origen del robot está a una altura diferente, la altura en la que se situa el punto que hay que mecanizar es diferente respecto al otro caso. De este modo el punto previo al desbarbado se define como ```puntoArriba=p[-0.25+i*D, -0.15+j*D, H-0.05, 0, 0, 0]``` y la posición donde se encuentra el punto a mecanizar se define como ```puntoAbajo=p[-0.25+i*D, -0.15+j*D, H, 0, 0, 0]``` siendo ```j``` e ```ì``` variables que hacen que el ciclo no se ejecute de forma infinita, ```D``` la distancia entre los puntos de la rejilla y ```H``` la  distyancia en el eje Z desde la base del robot hata la rejilla, en este caso 1000mm.
 
