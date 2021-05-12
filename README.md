@@ -21,5 +21,5 @@ En primer lugar se encuentra la definición del setup del robot. Aunque el setup
 
 ```py
 #bloque de codigo...
-		
-		```
+
+```
