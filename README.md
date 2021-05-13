@@ -139,6 +139,8 @@ El robot volverá a la posición segura al finalizar el proceso. Durante la ejec
 - La posición de la primera intersección siempre será la misma XYZ [500, -150, 0] RxRyRz [0, 180, 0]
 - Cuando un punto de la rejilla se ha mecanizado pasa al siguiente, desplazandose la distancia que se ha definido en las variables del principio, tiene que recorrer todos los puntos de una fila para que pueda saltar al primer punto de la siguiente fila.
 
+Para este ejercicio se ha tomado como base el ejercicio anterior, agregando dos ciclos para recorrer las filas y columnas mientras se llegando a los puntos de arriba y abajo para el desbarbado.
+
 ```py
 #funcion desbarbado
 def desbarbado(F, C, D, H, T):
@@ -316,7 +318,7 @@ end
 
 Si en la comprobación de los puntos se encuentra con al menos un punto conflictivo, aparecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
 
-###Programación mediante easy programming del robot UR5
+### Programación mediante easy programming del robot UR5
 UR robots contiene un modo de programación fácil que añadiendo nodos al arbol de programación se consigue programar el robot. Estos nodos tienen diferentes funcionalidades y complementandose entre ellos se puede conseguir el mismo nivel de programación que escribiendo un script.
 
 En esta forma de programar es menos probable cometer errores ya que si alguno de los nodos está mal definido se colorea de amarillo el parámetro que hay que definir; además, la necesidad de escribir las es mínima, una vez definidas pueden ser seleccionados mediante un desplegable que contiene el listado completo de ellas evitando así errores de sintaxis.
@@ -325,4 +327,4 @@ A diferencia de la programación mediante script, en la programación con easy p
 
 Todos los ejercicios tienen la misma esteuctura: Al inicio del programa se recogen las variables fijas en una carpeta, para definir las variables se ha empleado el nodo *Assignment*. En segundo lugar se establece un mensaje que indica que se va a dar comienzo al programa. 
 
-Después está el cuerpo del programa. Eñl cuerpo del programa está compuesto por los movimientos bucles y condiciones que se tienen que cumplir 
+Después está el cuerpo del programa. El cuerpo del programa está compuesto por los movimientos bucles y condiciones que se tienen que cumplir 
