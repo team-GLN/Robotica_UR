@@ -321,10 +321,20 @@ Si en la comprobación de los puntos se encuentra con al menos un punto conflict
 ### Programación mediante easy programming del robot UR5
 UR robots contiene un modo de programación fácil que añadiendo nodos al arbol de programación se consigue programar el robot. Estos nodos tienen diferentes funcionalidades y complementandose entre ellos se puede conseguir el mismo nivel de programación que escribiendo un script.
 
-En esta forma de programar es menos probable cometer errores ya que si alguno de los nodos está mal definido se colorea de amarillo el parámetro que hay que definir; además, la necesidad de escribir las es mínima, una vez definidas pueden ser seleccionados mediante un desplegable que contiene el listado completo de ellas evitando así errores de sintaxis.
+En esta forma de programar es menos probable cometer errores ya que, si alguno de los nodos está mal definido se colorea de amarillo el parámetro que hay que definir. Además, al establecer el valor para una variable, el recuadro donde se especifica el valor se colorea si el formato no es válido con el tipo de variable que calcula. 
 
-A diferencia de la programación mediante script, en la programación con easy programming hay que definir la instalación antes de ejecutar el programa. En la definición de la instalación se definen tanto la posición del montaje del robot como el TCP de las herramientas que se van a emplear.
+Una utilidad interesante del easy programing es que durante la ejecución del programa, en la vista *Variables* se pueden observar los valores que obtienen las variables en todo momento, interesante en el caso de las variables dinámicas.
 
-Todos los ejercicios tienen la misma esteuctura: Al inicio del programa se recogen las variables fijas en una carpeta, para definir las variables se ha empleado el nodo *Assignment*. En segundo lugar se establece un mensaje que indica que se va a dar comienzo al programa. 
+A diferencia de la programación mediante script, en la programación con *easy programming* hay que definir la instalación antes de ejecutar el programa. En la definición de la instalación se definen tanto la posición del montaje del robot como el TCP de las herramientas que se van a emplear.
 
-Después está el cuerpo del programa. El cuerpo del programa está compuesto por los movimientos bucles y condiciones que se tienen que cumplir 
+Todos los ejercicios tienen la misma esteuctura: Al inicio del programa se recogen las variables fijas en una carpeta, para definir las variables se ha empleado el nodo *Assignment*. En segundo lugar se establece un mensaje que indica que se va a dar comienzo al programa. Después está el cuerpo del programa. El cuerpo del programa está compuesto por los movimientos, bucles y condiciones que se tienen que cumplir.Los nodos correspondientes a una misma acción, como un ciclo para moverse por varios puntos, están recopilados en una carpeta para poder ser identificado y replicado con mayor facilidad. Por último, cuando el robot haya realizado todo el programa, un mensaje emerge para dar fin a la ejecución.
+
+A continuación se mostrarán los árboles de programación que se han creado para cada ejercicio y expresando las partes más remarcables en cada uno de ellos.
+
+#### Ejercicio 1
+Es un ejercicio típico de pick and place, en el que el brazo robótico coge un objeto de un punto y lo deposita en otro.
+
+Para este ejercicio se han definido una variable por cada punto del pick anda place: ```pick_arriba=p[0.5, 0, 0.25, 0, pi, 0]```,  ```pick_abajo=p[0.5, 0, 0, 0 , pi, 0]```, ```place_arriba=p[0.5, 0.25, 0.25, 0, pi, 0]```, ```place_abajo=p[0.5, 0.25, 0, 0, pi, 0]```. También se ha creado una variable que recoje la posición segura del robot ```safe_point=p[0.5, 0.25, 0.25, 0, pi, 0]```.
+"AÑADIR IMAGENES AQUI"
+
+El robot comienza a moverse desde la posición segura y se desplaza a la posición previa del pick mediante el nodo de movimiento ```movej```, después baja con el nodo de movimiento lineal ```movel``` hasta el punto de pick, espera durante un segundo con el nodo ```wait``` y vuelve a subir con un movimiento lineal. Después se mueve hacia las coordenadas del place y repite el mismo movimiento de bajar-subir en las coordinadas de place.
