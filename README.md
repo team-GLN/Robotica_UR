@@ -359,9 +359,11 @@ Los nodos correspondientes al desbarbado se recojen en una carpeta. El desplazam
 ![](/img/EASY_2.2.png)
 
 #### Ejercicio 3 Easy Programming
-Este ejercicio está vasado en el Ejercicio 2, en este caso en cada punto de la rejilla hay que efectuar un desbarbado de 2.5 segundos y un pulido de 1 segundo de duración. Como se emplean dos herramientas, se define un TCP por cada una de ellas en la instalación del robot, el de desbarbado es TCP_3_D con XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] grados y el de pulido TCP_3_P con XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] grados
-
-Al igual que en el Ejercicio 2, el movimiento por los puntos de la rejilla se consigue mediante un ciclo dentro de otro. El movimiento de subir y bajar la herramienta en un mismo punto se hace dos veces, uno por el desbarbado y otro por el pulido. Como se ha comentado, la extensión acoplada al robot está compuesta por dos herramientas, para poder bajar la herramienta correspondiente en cada caso la programación por easy programming permite definir el TCP en los nodos de movimiento.
+Este ejercicio está vasado en el Ejercicio 2, en este caso en cada punto de la rejilla hay que efectuar un desbarbado de 2.5 segundos y un pulido de 1 segundo de duración. Como se emplean dos herramientas, se define un TCP por cada una de ellas en la instalación del robot, el de desbarbado es TCP_3_D con XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] grados y el de pulido TCP_3_P con XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] grados.
 
 ![](/img/EASY_3.1.png)
 ![](/img/EASY_3.2.png)
+
+Al igual que en el Ejercicio 2, el movimiento por los puntos de la rejilla se consigue mediante un ciclo dentro de otro. El movimiento de subir y bajar la herramienta en un mismo punto se hace dos veces, uno por el desbarbado y otro por el pulido. Como se ha comentado, la extensión acoplada al robot está compuesta por dos herramientas, para poder bajar la herramienta correspondiente en cada caso la programación por easy programming permite definir el TCP en los nodos de movimiento.
+
+![](/img/EASY_3.3.png)
