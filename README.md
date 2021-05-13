@@ -329,6 +329,8 @@ En esta forma de programar es menos probable cometer errores ya que, si alguno d
 
 Una utilidad interesante del easy programing es que durante la ejecución del programa, en la vista *Variables* se pueden observar los valores que obtienen las variables en todo momento, interesante en el caso de las variables dinámicas.
 
+![](/IMG/EASY_VARIABLES.png)
+
 A diferencia de la programación mediante script, en la programación con *easy programming* hay que definir la instalación antes de ejecutar el programa. En la definición de la instalación se definen tanto la posición del montaje del robot como el TCP de las herramientas que se van a emplear.
 
 Todos los ejercicios tienen la misma esteuctura: Al inicio del programa se recogen las variables fijas en una carpeta, para definir las variables se ha empleado el nodo *Assignment*. En segundo lugar se establece un mensaje que indica que se va a dar comienzo al programa. Después está el cuerpo del programa. El cuerpo del programa está compuesto por los movimientos, bucles y condiciones que se tienen que cumplir. Los nodos correspondientes a una misma acción, como un ciclo para moverse por varios puntos, están recopilados en una carpeta para poder ser identificado y replicado con mayor facilidad. Por último, cuando el robot haya realizado todo el programa, un mensaje emerge para dar fin a la ejecución.
@@ -351,5 +353,9 @@ Es un ejercicio en el que el robot recorre los diferentes puntos de una rejilla 
 
 Un mensaje advierte del inicio del programa y el robot se mueve a la posición segura. Una vez aqui se empieza a desplazar al primer punto de la rejilla y por medio de un ciclo limitado se ejecuta el desbarbado por todos los puntos de la rejilla. Por último, el robot vuelve a la posición segura y un mensaje informa del final del programa.
 
+![](/img/EASY_2.1.png)
+
 Los nodos correspondientes al desbarbado se recojen en una carpeta. El desplazamiento por los diferentes pontos de la rejilla se consigue mediante un ciclo dentro de otro. El ciclo exterios se ejecuta mientras que la variable ```i``` tenga un valor menor a las filas establecida, y el ciclo interior se ejecutará  mientras que la variable ```j```tenga un valor menor a las columnas establecidas, reiniciandose cada vez que pase a una nueva fila. Dentro del ciclo interior se definen las variables ```arriba``` y ```abajo``` que hacen referencia a los puntos previos de desbarbado y los puntos de desbarbado, estos puntos van variando dependiendo de los valores de ```i``` y ```j```, es decir, dependen de la fila y la columna. Cuando el robot alcanza el punto ```abajo```, entra en un reposo de 2.5 segundos en los que se activa la salida digital 0 mediante el nodo ```set Digital Output``` con el valor HIGH (True en escritura de script), una vez pasado ese tiempo la salida digital se desactiva adquiriendo el valor LOW (False en escritura de script).
+
+![](/img/EASY_2.2.png)
 
