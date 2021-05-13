@@ -329,7 +329,7 @@ En esta forma de programar es menos probable cometer errores ya que, si alguno d
 
 Una utilidad interesante del easy programing es que durante la ejecución del programa, en la vista *Variables* se pueden observar los valores que obtienen las variables en todo momento, interesante en el caso de las variables dinámicas.
 
-![](/IMG/EASY_VARIABLES.png)
+![](/img/EASY_VARIABLES.png)
 
 A diferencia de la programación mediante script, en la programación con *easy programming* hay que definir la instalación antes de ejecutar el programa. En la definición de la instalación se definen tanto la posición del montaje del robot como el TCP de las herramientas que se van a emplear.
 
@@ -341,12 +341,11 @@ A continuación se mostrarán los árboles de programación que se han creado pa
 Es un ejercicio típico de pick and place, en el que el brazo robótico coge un objeto de un punto y lo deposita en otro.
 
 Para este ejercicio se han definido una variable por cada punto del pick anda place: ```pick_arriba=p[0.5, 0, 0.25, 0, pi, 0]```,  ```pick_abajo=p[0.5, 0, 0, 0 , pi, 0]```, ```place_arriba=p[0.5, 0.25, 0.25, 0, pi, 0]```, ```place_abajo=p[0.5, 0.25, 0, 0, pi, 0]```. También se ha creado una variable que recoje la posición segura del robot ```safe_point=p[0.5, 0.25, 0.25, 0, pi, 0]```.
-"AÑADIR IMAGENES AQUI"
-
-El robot comienza a moverse desde la posición segura y se desplaza a la posición previa del pick mediante el nodo de movimiento ```movej```, después baja con el nodo de movimiento lineal ```movel``` hasta el punto de pick, espera durante un segundo con el nodo ```wait``` y vuelve a subir con un movimiento lineal. Después se mueve hacia las coordenadas del place y repite el mismo movimiento de bajar-subir en las coordinadas de place.
 
 ![](/img/EASY_1.1.png)
 ![](/img/EASY_1.2.png)
+
+El robot comienza a moverse desde la posición segura y se desplaza a la posición previa del pick mediante el nodo de movimiento ```movej```, después baja con el nodo de movimiento lineal ```movel``` hasta el punto de pick, espera durante un segundo con el nodo ```wait``` y vuelve a subir con un movimiento lineal. Después se mueve hacia las coordenadas del place y repite el mismo movimiento de bajar-subir en las coordinadas de place.
 
 #### Ejercicio 2 Easy Programming
 Es un ejercicio en el que el robot recorre los diferentes puntos de una rejilla y ejecuta un desbarbado en cada uno de ellos. Los parámetros de la rejilla están definidos al principio del programa dentro de la carpeta de variables.
@@ -359,3 +358,10 @@ Los nodos correspondientes al desbarbado se recojen en una carpeta. El desplazam
 
 ![](/img/EASY_2.2.png)
 
+#### Ejercicio 3 Easy Programming
+Este ejercicio está vasado en el Ejercicio 2, en este caso en cada punto de la rejilla hay que efectuar un desbarbado de 2.5 segundos y un pulido de 1 segundo de duración. Como se emplean dos herramientas, se define un TCP por cada una de ellas en la instalación del robot, el de desbarbado es TCP_3_D con XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] grados y el de pulido TCP_3_P con XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] grados
+
+Al igual que en el Ejercicio 2, el movimiento por los puntos de la rejilla se consigue mediante un ciclo dentro de otro. El movimiento de subir y bajar la herramienta en un mismo punto se hace dos veces, uno por el desbarbado y otro por el pulido. Como se ha comentado, la extensión acoplada al robot está compuesta por dos herramientas, para poder bajar la herramienta correspondiente en cada caso la programación por easy programming permite definir el TCP en los nodos de movimiento.
+
+![](/img/EASY_3.1.png)
+![](/img/EASY_3.2.png)
