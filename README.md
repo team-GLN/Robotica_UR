@@ -322,6 +322,7 @@ Si en la comprobación de los puntos se encuentra con al menos un punto conflict
 UR robots contiene un modo de programación fácil que añadiendo nodos al arbol de programación se consigue programar el robot. Estos nodos tienen diferentes funcionalidades y complementandose entre ellos se puede conseguir el mismo nivel de programación que escribiendo un script.
 
 En esta forma de programar es menos probable cometer errores ya que, si alguno de los nodos está mal definido se colorea de amarillo el parámetro que hay que definir. Además, al establecer el valor para una variable, el recuadro donde se especifica el valor se colorea si el formato no es válido con el tipo de variable que calcula. 
+[![Sección de arbol de programación con un nodo no definido](/img/UR_EP_1.PNG)]
 
 Una utilidad interesante del easy programing es que durante la ejecución del programa, en la vista *Variables* se pueden observar los valores que obtienen las variables en todo momento, interesante en el caso de las variables dinámicas.
 
@@ -338,3 +339,6 @@ Para este ejercicio se han definido una variable por cada punto del pick anda pl
 "AÑADIR IMAGENES AQUI"
 
 El robot comienza a moverse desde la posición segura y se desplaza a la posición previa del pick mediante el nodo de movimiento ```movej```, después baja con el nodo de movimiento lineal ```movel``` hasta el punto de pick, espera durante un segundo con el nodo ```wait``` y vuelve a subir con un movimiento lineal. Después se mueve hacia las coordenadas del place y repite el mismo movimiento de bajar-subir en las coordinadas de place.
+[(/img/EASY_1.1.png)] 
+[(/img/EASY_1.2.png)]
+
