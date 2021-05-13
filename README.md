@@ -16,7 +16,7 @@ Desarrollado por:
   - [Ejercicio 4](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-4)
   - [Ejercicio 5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-5)
 - [Programación mediante easy programming del robot UR5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#Programación-mediante-easy-programming-del-robot-UR5)
-  - [Ejercicio 1](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1)
+  - [Ejercicio 1 Easy Programming](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1-easy-programming)
 
 ### Introducción
 La práctica desarrollada a continuación, se ha llevado a cabo mediante el simulador “SW 5.9 OFFLINE SIMULATOR - E-SERIES - UR SIM FOR NON LINUX 5.9.4” de Universal Robot. Además ha sido necesaria la instalación de VirtualBox 6.1 y el Extension Pack. Dentro del simulador se encuentran diferentes modelos de robots, el número que acompaña al nombre del modelo indica la carga máxima qeu puede soportar. En este caso se va a emplear el modelo UR5, este modelo puede soportar una carga máxima de 5kg, se ha elegido este modelo ya que es el que se encuentra en el laboratorio. 
@@ -334,7 +334,7 @@ Todos los ejercicios tienen la misma esteuctura: Al inicio del programa se recog
 
 A continuación se mostrarán los árboles de programación que se han creado para cada ejercicio y expresando las partes más remarcables en cada uno de ellos.
 
-#### Ejercicio 1
+#### Ejercicio 1 Easy Programming
 Es un ejercicio típico de pick and place, en el que el brazo robótico coge un objeto de un punto y lo deposita en otro.
 
 Para este ejercicio se han definido una variable por cada punto del pick anda place: ```pick_arriba=p[0.5, 0, 0.25, 0, pi, 0]```,  ```pick_abajo=p[0.5, 0, 0, 0 , pi, 0]```, ```place_arriba=p[0.5, 0.25, 0.25, 0, pi, 0]```, ```place_abajo=p[0.5, 0.25, 0, 0, pi, 0]```. También se ha creado una variable que recoje la posición segura del robot ```safe_point=p[0.5, 0.25, 0.25, 0, pi, 0]```.
