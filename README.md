@@ -16,6 +16,7 @@ Desarrollado por:
   - [Ejercicio 4](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-4)
   - [Ejercicio 5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-5)
 - [Programación mediante easy programming del robot UR5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#Programación-mediante-easy-programming-del-robot-UR5)
+  - [Ejercicio 1](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1)
 
 ### Introducción
 La práctica desarrollada a continuación, se ha llevado a cabo mediante el simulador “SW 5.9 OFFLINE SIMULATOR - E-SERIES - UR SIM FOR NON LINUX 5.9.4” de Universal Robot. Además ha sido necesaria la instalación de VirtualBox 6.1 y el Extension Pack. Dentro del simulador se encuentran diferentes modelos de robots, el número que acompaña al nombre del modelo indica la carga máxima qeu puede soportar. En este caso se va a emplear el modelo UR5, este modelo puede soportar una carga máxima de 5kg, se ha elegido este modelo ya que es el que se encuentra en el laboratorio. 
@@ -340,6 +341,6 @@ Para este ejercicio se han definido una variable por cada punto del pick anda pl
 "AÑADIR IMAGENES AQUI"
 
 El robot comienza a moverse desde la posición segura y se desplaza a la posición previa del pick mediante el nodo de movimiento ```movej```, después baja con el nodo de movimiento lineal ```movel``` hasta el punto de pick, espera durante un segundo con el nodo ```wait``` y vuelve a subir con un movimiento lineal. Después se mueve hacia las coordenadas del place y repite el mismo movimiento de bajar-subir en las coordinadas de place.
-[!](/img/EASY_1.1.png)
-[!](/img/EASY_1.2.png)
+![](/img/EASY_1.1.png)
+![](/img/EASY_1.2.png)
 
