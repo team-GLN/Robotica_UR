@@ -274,7 +274,7 @@ Antes de empezar con el desbarbado hay que hacer un chequeo del alcance de los p
 
 ```py
 def desbarbado(F,C,d,h,t):
-  	#Comprobacion de los puntos conflictivos, por cada punto conflictivo qeu calcule el contador error aumentara
+  	#Comprobacion de los puntos conflictivos, por cada punto conflictivo que calcule el contador error aumentara
    	i=0
   	error=0
    	while i<F:
