@@ -34,7 +34,7 @@ Despues se realiza una declaración de variables, donde se definen las posicione
 Seguido a ello, se muestran los subprocesos, métodos o funciones (si son necesarias) que se utilicen en el código. Y por último el principal, donde se invocan los metodos y realizan el resto de acciones.
 
 
-### Ejercicio 1
+#### Ejercicio 1
 El setup de la célula es el siguiente:
 * El robot está colocado sobre una mesa de trabajo con la base del robot apoyada en la mesa.
 * Se ha añadido un gripper de 1.5kg y su TCP está en la posición XYZ [0, 0, 150] mm y RxRyRz [0, 0, 90] grados.
@@ -100,7 +100,7 @@ Por ultimo, el robot regresa con un ```movej```a la posición segura y se muestr
 movej(SafePoint, 1, 1)
 popup("Su codigo ha terminado. Desea continuar?", title="Finish", blocking=True)
 ```
-### Ejercicio 2
+#### Ejercicio 2
 Para este segundo ejercicio se implementa un programa para el desbarbado de unas rejillas, en el cual el robot se desplaza a las intersecciones de la rejilla para realizar el desbarbado, segun el número de filas, columnas y distancia entre filas/columna definidas por el cliente. 
 
 El setup de la célula es el siguiente:
@@ -175,7 +175,7 @@ end
 ```
 Cuando se han mecanizado todos los puntos de la rejilla, es decir, los ciclos definidos han llegado al limite establecido por las variables ```filas```y ```columnas```, el robot vuelve a la posición de seguridad y finaliza el programa. 
 
-### Ejercicio 3
+#### Ejercicio 3
 Este ejercicio es muy parecido al Ejercicio 2, con la diferencia de que en este caso contamos con una herramienta de doble cabezal en el extremo del robot, uno para el desbarbado y otro para el pulido, cada cabezal tiene su TCP. Partiendo del script del Ejercicio 2 y haciendo unas modificaciones se puede programar facilmete el robot para este caso.
 
 El setup de la célula es el siguiente:
@@ -244,7 +244,7 @@ def desbarbado(F, C, D, H, T_d, T_p):
 end
 ```
 
-### Ejercicio 4
+#### Ejercicio 4
 El ejercicio 4 parte el Ejercicio 3, en este caso, por limitaciones en el espacio, el robot está colgado en el techo y como medida de seguridad no se pondrá en marcha hasta que reciba la señal de la entrada digital.
 Para situar el robot en el techo, en la sección *Installation* del simulador se especifica el modo de montaje colgado del techo.
 
@@ -265,7 +265,7 @@ Para poder activar la entrada digital hay que trabajar en modo *Simulation* en l
 
 Dentro del script, la escritura de la función de desbarbado es igual que en el ejercicio 3 con la única diferencia de que como el origen del robot está a una altura diferente, la altura en la que se situa el punto que hay que mecanizar es diferente respecto al otro caso. De este modo el punto previo al desbarbado se define como ```puntoArriba=p[-0.25+i*D, -0.15+j*D, H-0.05, 0, 0, 0]``` y la posición donde se encuentra el punto a mecanizar se define como ```puntoAbajo=p[-0.25+i*D, -0.15+j*D, H, 0, 0, 0]``` siendo ```j``` e ```ì``` variables que hacen que el ciclo no se ejecute de forma infinita, ```D``` la distancia entre los puntos de la rejilla y ```H``` la  distancia en el eje Z desde la base del robot hata la rejilla, en este caso 1000mm.
 
-### Ejercicio 5
+#### Ejercicio 5
 Este ejercicio, que se basa en el ejercicio 2, trata de detectar los puntos que el brazo no puede alcanzar. Los puntos inalcanzables tienen que quedar registrados en los LOG del robot. Estos puntos inalcanzables pueden aparecer cuando la distancia entre los puntos es muy grande o cuando, teniendo una distncia relativamente pequeña, tiene muchos puntos que mecanizar.
 
 El setup y el punto de seguridad se mantienen respecto al Ejercicio 2, también el punto de inicio del desbarbado y los parametros de desbarbado.
@@ -315,3 +315,14 @@ end
 ```
 
 Si en la comprobación de los puntos se encuentra con al menos un punto conflictivo, aparecerá un mensaje de advertencia y el robot no se pondrá en movimiento. En caso contrario, si los puntos de la rejilla están a una distancia alcanzable por el robot, el robot se pondrá en marcha y y guardara un LOG por cada punto en el que haga el desbarbado.
+
+###Programación mediante easy programming del robot UR5
+UR robots contiene un modo de programación fácil que añadiendo nodos al arbol de programación se consigue programar el robot. Estos nodos tienen diferentes funcionalidades y complementandose entre ellos se puede conseguir el mismo nivel de programación que escribiendo un script.
+
+En esta forma de programar es menos probable cometer errores ya que si alguno de los nodos está mal definido se colorea de amarillo el parámetro que hay que definir; además, la necesidad de escribir las es mínima, una vez definidas pueden ser seleccionados mediante un desplegable que contiene el listado completo de ellas evitando así errores de sintaxis.
+
+A diferencia de la programación mediante script, en la programación con easy programming hay que definir la instalación antes de ejecutar el programa. En la definición de la instalación se definen tanto la posición del montaje del robot como el TCP de las herramientas que se van a emplear.
+
+Todos los ejercicios tienen la misma esteuctura: Al inicio del programa se recogen las variables fijas en una carpeta, para definir las variables se ha empleado el nodo *Assignment*. En segundo lugar se establece un mensaje que indica que se va a dar comienzo al programa. 
+
+Después está el cuerpo del programa. Eñl cuerpo del programa está compuesto por los movimientos bucles y condiciones que se tienen que cumplir 
