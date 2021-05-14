@@ -340,7 +340,7 @@ A continuación se mostrarán los árboles de programación que se han creado pa
 #### Ejercicio 1 Easy Programming
 Es un ejercicio típico de pick and place, en el que el brazo robótico coge un objeto de un punto y lo deposita en otro.
 
-Para este ejercicio se han definido una variable por cada punto del pick anda place: ```pick_arriba=p[0.5, 0, 0.25, 0, pi, 0]```,  ```pick_abajo=p[0.5, 0, 0, 0 , pi, 0]```, ```place_arriba=p[0.5, 0.25, 0.25, 0, pi, 0]```, ```place_abajo=p[0.5, 0.25, 0, 0, pi, 0]```. También se ha creado una variable que recoje la posición segura del robot ```safe_point=p[0.5, 0.25, 0.25, 0, pi, 0]```.
+Para este ejercicio se han definido una variable por cada punto del pick anda place: ```pick_arriba=p[0.5, 0, 0.25, 0, pi, 0]```,  ```pick_abajo=p[0.5, 0, 0, 0 , pi, 0]```, ```place_arriba=p[0.5, 0.25, 0.25, 0, pi, 0]```, ```place_abajo=p[0.5, 0.25, 0, 0, pi, 0]```. También se ha creado una variable que recoje la posición segura del robot ```safe_point=p[0.5, 0.25, 0.25, 0, pi, 0]```. El gripper que se emplea en este caso esta definido en la instalación con el nombre TCP_1, tiene el peso de 1.5kg y la posición XYZ [0, 0, 150] mm y RxRyRz [0, 0, 90] grados.
 
 ![](/img/EASY_1.1.png)
 ![](/img/EASY_1.2.png)
@@ -348,7 +348,7 @@ Para este ejercicio se han definido una variable por cada punto del pick anda pl
 El robot comienza a moverse desde la posición segura y se desplaza a la posición previa del pick mediante el nodo de movimiento ```movej```, después baja con el nodo de movimiento lineal ```movel``` hasta el punto de pick, espera durante un segundo con el nodo ```wait``` y vuelve a subir con un movimiento lineal. Después se mueve hacia las coordenadas del place y repite el mismo movimiento de bajar-subir en las coordinadas de place.
 
 #### Ejercicio 2 Easy Programming
-Es un ejercicio en el que el robot recorre los diferentes puntos de una rejilla y ejecuta un desbarbado en cada uno de ellos. Los parámetros de la rejilla están definidos al principio del programa dentro de la carpeta de variables.
+Es un ejercicio en el que el robot recorre los diferentes puntos de una rejilla y ejecuta un desbarbado en cada uno de ellos. Los parámetros de la rejilla están definidos al principio del programa dentro de la carpeta de variables. El gripper que se emplea está definido en la instalación con el nombre TCP_2, tiene un peso de 2kg y su pocición es XYZ [0, 25, 175] mm y RxRyRz [0, 0, 90] grados.
 
 Un mensaje advierte del inicio del programa y el robot se mueve a la posición segura. Una vez aqui se empieza a desplazar al primer punto de la rejilla y por medio de un ciclo limitado se ejecuta el desbarbado por todos los puntos de la rejilla. Por último, el robot vuelve a la posición segura y un mensaje informa del final del programa.
 
@@ -359,11 +359,26 @@ Los nodos correspondientes al desbarbado se recojen en una carpeta. El desplazam
 ![](/img/EASY_2.2.png)
 
 #### Ejercicio 3 Easy Programming
-Este ejercicio está vasado en el Ejercicio 2, en este caso en cada punto de la rejilla hay que efectuar un desbarbado de 2.5 segundos y un pulido de 1 segundo de duración. Como se emplean dos herramientas, se define un TCP por cada una de ellas en la instalación del robot, el de desbarbado es TCP_3_D con XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] grados y el de pulido TCP_3_P con XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] grados.
+Este ejercicio está vasado en el Ejercicio 2, en este caso en cada punto de la rejilla hay que efectuar un desbarbado de 2.5 segundos y un pulido de 1 segundo de duración. Al robot se le ha acoblado un gripper de doble cabezal. Como se emplean dos herramientas, se define un TCP por cada una de ellas en la instalación del robot, el de desbarbado es TCP_3_D con XYZ [50, 25, 175] mm y RxRyRz [0, 0, 90] grados y el de pulido TCP_3_P con XYZ [-50, 25, 175] mm y RxRyRz [0, 0, 90] grados.
 
 ![](/img/EASY_3.1.png)
 ![](/img/EASY_3.2.png)
 
-Al igual que en el Ejercicio 2, el movimiento por los puntos de la rejilla se consigue mediante un ciclo dentro de otro. El movimiento de subir y bajar la herramienta en un mismo punto se hace dos veces, uno por el desbarbado y otro por el pulido. Como se ha comentado, la extensión acoplada al robot está compuesta por dos herramientas, para poder bajar la herramienta correspondiente en cada caso la programación por easy programming permite definir el TCP en los nodos de movimiento.
+
+
+Al igual que en el Ejercicio 2, el movimiento por los puntos de la rejilla se consigue mediante un ciclo dentro de otro. El movimiento de subir y bajar la herramienta en un mismo punto se hace dos veces, uno por el desbarbado y otro por el pulido. Como se ha comentado, el gripper está compuesta por dos herramientas, para poder bajar la herramienta correspondiente en cada caso, la programación por easy programming permite definir el TCP en los nodos de movimiento.
 
 ![](/img/EASY_3.3.png)
+
+#### Ejercicio 4 Easy Programming
+Partiendo del caso del ejercicio 3, en este ejercicio el robot se ha colgado del techo para poder aprobechar el espacio en el taller. Como medida de seguridad el robot no se va a poner en marcha hasta que no reciva la señal de la entrada digital 1.
+
+Para simular que el robot está colgado del techo, en la definición de la instalación se elige el modo de montaje correspondiente. Ahora tiene un nuevo punto de seguridad definido como ```safe_point=[0,-pi/8,-5*pi/8,-3pi/4,pi/2,0]```. Como la posición de la base del robot ha cambiado, también ha cambiado la posición rerlativa de los puntos de la rejilla. La rejilla ahora está a una distancia de +1000mm en Z por lo que el punto previo al mecanizado se define como ```arriba=p[-0.25+i*distancia,-0.15+j*distancia,0.95,0,0,0]``` y el punto del mecanizado se define como ```arriba=p[-0.25+i*distancia,-0.15+j*distancia,1,0,0,0]```. Los demás parámetros a definir se mantienen igual que en el caso anterior.
+
+![](/img/EASY_4.1.png)
+![](/img/EASY_4.2.png)
+![](/img/EASY_4.3.png)
+
+Para que el robot se ponga en marcha con la llegada de la señal de la entrada digital 0, al inicio del programa hay que colocar un nodo ```wait Digital Input [0]=HIGH```, el resto del programa es igual que en el ejercicio 3. Para poder activar las entradas digitales a mano, hay que activar el modo *Simulation*, una vez activado el entrorno se volverá azul y se habilitaran las entradas digitales en la pestaña I/O.
+
+![](/img/EASY_4.4.png)
