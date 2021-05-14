@@ -1,0 +1,87 @@
+def ejercicio_1():
+  set_gravity([0.0, 0.0, 9.82])
+  step_count_f35550ea_1194_4b78_b5f0_262c92cd2fb6 = 0.0
+  thread Step_Counter_Thread_4f3b60b3_e41b_4802_b1f2_6a7e01afc43a():
+    while (True):
+      step_count_f35550ea_1194_4b78_b5f0_262c92cd2fb6 = step_count_f35550ea_1194_4b78_b5f0_262c92cd2fb6 + 1.0
+      sync()
+    end
+  end
+  run Step_Counter_Thread_4f3b60b3_e41b_4802_b1f2_6a7e01afc43a()
+  set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+  set_payload(1.5)
+  set_standard_analog_input_domain(0, 1)
+  set_standard_analog_input_domain(1, 1)
+  set_tool_analog_input_domain(0, 1)
+  set_tool_analog_input_domain(1, 1)
+  set_analog_outputdomain(0, 0)
+  set_analog_outputdomain(1, 0)
+  set_input_actions_to_default()
+  set_safety_mode_transition_hardness(1)
+  set_tool_communication(False, 115200, 0, 1, 1.5, 3.5)
+  set_tool_output_mode(0)
+  set_tool_digital_output_mode(0, 1)
+  set_tool_digital_output_mode(1, 1)
+  set_tool_voltage(0)
+  while (True):
+    $ 1 "Robot Program"
+    $ 2 "variables"
+    $ 3 "pi≔3.1416"
+    global pi=3.1416
+    $ 4 "pick_arriba≔p[0.5,0,0.25,0,pi,0]"
+    global pick_arriba=p[0.5,0,0.25,0,pi,0]
+    $ 5 "pick_abajo≔p[0.5,0,0,0,pi,0]"
+    global pick_abajo=p[0.5,0,0,0,pi,0]
+    $ 6 "place_arriba≔p[0.5,0.25,0.25,0,pi,0]"
+    global place_arriba=p[0.5,0.25,0.25,0,pi,0]
+    $ 7 "place_abajo≔p[0.5,0.25,0,0,pi,0]"
+    global place_abajo=p[0.5,0.25,0,0,pi,0]
+    $ 8 "safe_point≔[0,-pi/4,-pi/2,-3*pi/4,pi/2,0]"
+    global safe_point=[0,-pi/4,-pi/2,-3*pi/4,pi/2,0]
+    $ 9 "Popup: El programa va a comenzar"
+    popup("El programa va a comenzar", "Message", False, False, blocking=True)
+    $ 10 "MoveJ"
+    $ 11 "safe_point" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movej(safe_point, a=1.3962634015954636, v=1.0471975511965976)
+    $ 12 "MoveJ"
+    $ 13 "pick_arriba" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movej(pick_arriba, a=1.3962634015954636, v=1.0471975511965976)
+    $ 14 "MoveL"
+    $ 15 "pick_abajo" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movel(pick_abajo, a=1.2, v=0.25)
+    $ 16 "'PICK'"
+    # 'PICK'
+    $ 17 "Wait: 1.0"
+    sleep(1.0)
+    $ 18 "MoveL"
+    $ 19 "pick_arriba" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movel(pick_arriba, a=1.2, v=0.25)
+    $ 20 "MoveJ"
+    $ 21 "place_arriba" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movej(place_arriba, a=1.3962634015954636, v=1.0471975511965976)
+    $ 22 "MoveL"
+    $ 23 "place_abajo" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movel(place_abajo, a=1.2, v=0.25)
+    $ 24 "'PLACE'"
+    # 'PLACE'
+    $ 25 "Wait: 1.0"
+    sleep(1.0)
+    $ 26 "MoveL"
+    $ 27 "place_arriba" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movel(place_arriba, a=1.2, v=0.25)
+    $ 28 "MoveJ"
+    $ 29 "safe_point" "breakAfter"
+    set_tcp(p[0.0,0.0,0.15,0.0,0.0,1.5707963267948966])
+    movej(safe_point, a=1.3962634015954636, v=1.0471975511965976)
+    $ 30 "Popup: El programa ha acabado"
+    popup("El programa ha acabado", "Message", False, False, blocking=False)
+    halt
+  end
+end

@@ -1,0 +1,43 @@
+ Program
+   Robot Program
+     variables
+       pi≔3.1416
+       parametros rejilla
+         distancia≔0.05
+         columnas≔3
+         filas≔2
+       puntos
+         safe_point≔[0,-pi/8,-5*pi/8,-3*pi/4,pi/2,0]
+     Wait DI[0]=HI
+     Popup: No hay elementos que impidan la trayectoria. El programa va a comenzar
+     MoveJ
+       safe_point
+     i≔0
+     Loop i<filas
+       j≔0
+       Loop j<columnas
+         arriba≔p[-0.25+i*distancia,-0.15+j*distancia,0.95,0,0,0]
+         abajo≔p[-0.25+i*distancia,-0.15+j*distancia,1,0,0,0]
+         MoveJ
+           arriba
+         desbarbado
+           MoveL
+             abajo
+           Set DO[0]=On
+           Wait: 2.5
+           Set DO[0]=Off
+           MoveL
+             arriba
+         pulido
+           MoveL
+             abajo
+           Set DO[1]=On
+           Wait: 1.0
+           Set DO[1]=Off
+           MoveL
+             arriba
+         j≔j+1
+       i≔i+1
+     MoveJ
+       safe_point
+     Popup: El programa ha finalizado
