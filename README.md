@@ -18,6 +18,9 @@ Desarrollado por:
 - [Programación mediante easy programming del robot UR5](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#Programación-mediante-easy-programming-del-robot-UR5)
   - [Ejercicio 1 Easy Programming](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-1-easy-programming)
   - [Ejercicio 2 Easy Programming](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-2-easy-programming)
+  - [Ejercicio 3 Easy Programming](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-3-easy-programming)
+  - [Ejercicio 4 Easy Programming](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-4-easy-programming)
+  - [Ejercicio 5 Easy Programming](https://github.com/team-GLN/Robotica_UR/blob/UR/README.md#ejercicio-5-easy-programming)
 
 ### Introducción
 La práctica desarrollada a continuación, se ha llevado a cabo mediante el simulador “SW 5.9 OFFLINE SIMULATOR - E-SERIES - UR SIM FOR NON LINUX 5.9.4” de Universal Robot. Además ha sido necesaria la instalación de VirtualBox 6.1 y el Extension Pack. Dentro del simulador se encuentran diferentes modelos de robots, el número que acompaña al nombre del modelo indica la carga máxima qeu puede soportar. En este caso se va a emplear el modelo UR5, este modelo puede soportar una carga máxima de 5kg, se ha elegido este modelo ya que es el que se encuentra en el laboratorio. 
@@ -382,3 +385,15 @@ Para simular que el robot está colgado del techo, en la definición de la insta
 Para que el robot se ponga en marcha con la llegada de la señal de la entrada digital 0, al inicio del programa hay que colocar un nodo ```wait Digital Input [0]=HIGH```, el resto del programa es igual que en el ejercicio 3. Para poder activar las entradas digitales a mano, hay que activar el modo *Simulation*, una vez activado el entrorno se volverá azul y se habilitaran las entradas digitales en la pestaña I/O.
 
 ![](/img/EASY_4.4.png)
+
+#### Ejercicio 5 Easy Programming
+Partiendo del ejercicio 2, en el ejercicio 5 se quiere hacer una comprobación del alcance del robot y detectar si algún punto está fuera de los límites antes de iniciar el programa. Para ello se emplea la función ```is_within_safety_limits()```. La instalación del robot se mantiene la del ejercicio 2, y a las variables se le añade una nueva llamada ```error``` siendo este un contador de los puntos fuera de alcance.
+
+El arbol de programación queda de este modo: Al ejecutarse el programa aparece un texto informando del inicio, acto seguido se hace el chequeo del alcance, en caso de que haya al menos un punto inalcanzable el programa se detiene y aparece un popup informando de que se han encontrado problemas con el alcance de los puntos. En caso contrario, se procederá al desbarbado por todos los puntos.
+
+![](/img/EASY_5.1.png)
+![](/img/EASY_5.2.png)
+
+Para hacer el chequeo del alcance de los puntos se ha empleado un ciclo parecido al empleado para hacer el recorrido del robot por los puntos, solo que en el caso del chequeho no se hace ningún tipo de movimiento, solo se actualizan los valores correspondientes a cada punto. Mediante un nodo ```if``` se puede comprobar si el punto está dentro de los limites, para ello se equipara el valor de la variable ```arriba``` con el límite del robot, quedando la definición del nodo ```if is_within_safety_limits(arriba)=!True```. Si la condición se cumple el valor de la variable ```error``` aumentará.
+
+![](/img/EASY_5.3.png)
