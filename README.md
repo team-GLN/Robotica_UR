@@ -381,4 +381,4 @@ Para simular que el robot está colgado del techo, en la definición de la insta
 
 Para que el robot se ponga en marcha con la llegada de la señal de la entrada digital 0, al inicio del programa hay que colocar un nodo ```wait Digital Input [0]=HIGH```, el resto del programa es igual que en el ejercicio 3. Para poder activar las entradas digitales a mano, hay que activar el modo *Simulation*, una vez activado el entrorno se volverá azul y se habilitaran las entradas digitales en la pestaña I/O.
 
-![](/img/EASY_4.4.png) 
+![](/img/EASY_4.4.png)
